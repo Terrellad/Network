@@ -1,0 +1,41 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+   <input type="hidden" id="IDprofile" value="{{ IDprofile }}">
+   <input type="hidden" id="IdCheck" value="{{ request.user.id }}">
+   <div id="follow_ID">
+   </div>
+   <div id="followAllPost">
+     <input type="hidden" id="FollowTotalPage" value="{{ follow_page_obj.paginator.num_pages }}">
+     <input type="hidden" id="FollowCurrentPage" value="{{ follow_page_obj.number }}">
+   </div>
+
+   <div id="followPagin_view">
+     {% ifnotequal 1 follow_page_obj.paginator.num_pages %}
+         <nav class="navbar-expand-lg mr-auto">
+           <ul id="pageButtons" class="pagination justify-content-center">
+             <li class="page-item">
+               {% if follow_page_obj.has_previous %}
+                   <a id="btn_prev" class="page-link" href="?page={{ follow_page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+               {% else %}
+                   <span aria-hidden="true"></span>
+               {% endif %}
+             </li>
+             <li class="page-item">Page: {{ follow_page_obj.number }} of {{ follow_page_obj.paginator.num_pages }}</li>
+             <li class="page-item">
+               {% if follow_page_obj.has_next %}
+                   <a id="btn_next" class="page-link" href="?page={{ follow_page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+               {% else %}
+                    <span aria-hidden="true"></span>
+               {% endif %}
+             </li>
+           </ul>
+         </nav>
+     {% endifnotequal %}
+   </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/follow.js' %}"></script>
+{% endblock %}

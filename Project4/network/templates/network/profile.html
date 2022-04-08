@@ -1,0 +1,40 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <input type="hidden" id="Idprofile" value="{{ idProfile }}">
+    <input type="hidden" id="Idcheck" value="{{ request.user.id }}">
+    <input type="hidden" id="ProfileTotalPages" value="{{ profile_page_obj.paginator.num_pages }}">
+    <input type="hidden" id="ProfileCurrentPage" value="{{ profile_page_obj.number }}">
+    <div id="profile_id">
+    </div>
+    <div id="profile_list">
+    </div>
+    <div id="profilePagin_view">
+      {% ifnotequal 1 profile_page_obj.paginator.num_pages %}
+          <nav class="navbar-expand-lg mr-auto">
+            <ul id="pageButtons" class="pagination justify-content-center">
+              <li class="page-item">
+                {% if profile_page_obj.has_previous %}
+                    <a id="btn_prev" class="page-link" href="?page={{ profile_page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                {% else %}
+                    <span aria-hidden="true"></span>
+                {% endif %}
+              </li>
+              <li class="page-item">Page: {{ profile_page_obj.number }} of {{ profile_page_obj.paginator.num_pages }}</li>
+              <li class="page-item">
+                {% if profile_page_obj.has_next %}
+                    <a id="btn_next" class="page-link" href="?page={{ profile_page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                {% else %}
+                     <span aria-hidden="true"></span>
+                {% endif %}
+              </li>
+            </ul>
+          </nav>
+      {% endifnotequal %}
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/profile.js' %}"></script>
+{% endblock %}

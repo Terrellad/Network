@@ -1,0 +1,13 @@
+.Posttext {
+  width: 80px;
+  height: 40px;
+}
+
+.post {
+  padding: 20px;
+  margin: 10px;
+}
+
+body {
+  padding_bottom: 50px;
+}

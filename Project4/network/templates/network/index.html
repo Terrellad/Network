@@ -1,0 +1,55 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div id="NewPost">
+      <h3>All Posts</h3>
+      <strong>New Post</strong>
+      <form id="Postform">
+        <input type="hidden" id="UserId" value="{{ request.user.id }}">
+         <input type="hidden" id="Postuser" value="{{ request.user.username }}">
+         <textarea id="Posttext" class="textstyle" placeholder="Write post content here."></textarea><br>
+         <button class="btn btn-sm btn-outline-secondary" id="post">Post</button>
+      </form>
+    </div>
+    <hr>
+
+    <div id="Post_view">
+      <input type="hidden" id="TotalPage" value="{{ page_obj.paginator.num_pages }}">
+      <input type="hidden" id="CurrentPage" value="{{ page_obj.number }}">
+
+
+    </div>
+
+    <div id="Edit_view">
+    </div>
+
+    <div id="Profile_view">
+    </div>
+
+    <div id="pagin_view">
+      <nav class="navbar-expand-lg mr-auto">
+        <ul id="pageButtons" class="pagination justify-content-center">
+          <li class="page-item">
+            {% if page_obj.has_previous %}
+                <a id="btn_prev" class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+            {% else %}
+                <span aria-hidden="true"></span>
+            {% endif %}
+          </li>
+          <li class="page-item">Page: {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
+          <li class="page-item">
+            {% if page_obj.has_next %}
+                <a id="btn_next" class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+            {% else %}
+                 <span aria-hidden="true"></span>
+            {% endif %}
+          </li>
+        </ul>
+      </nav>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/index.js' %}"></script>
+{% endblock %}
